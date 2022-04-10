@@ -1,3 +1,4 @@
+import 'package:cricket_scoreboard/backend/db.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -41,8 +42,9 @@ class _SignInPageState extends State<SignInPage> {
                   loading = true;
                 });
                 try {
-                  await authService.signInWithEmailAndPassword(
+                  String uid = await authService.signInWithEmailAndPassword(
                       email: email, password: password);
+                  await dbService.setTeamName(uid: uid);
                 } on FirebaseAuthException catch (e) {
                   setState(() {
                     loading = false;

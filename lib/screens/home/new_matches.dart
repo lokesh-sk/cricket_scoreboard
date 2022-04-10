@@ -1,4 +1,5 @@
 import 'package:cricket_scoreboard/backend/db.dart';
+import 'package:cricket_scoreboard/screens/scoreboardpage/scoreboardpage.dart';
 import 'package:cricket_scoreboard/shared/text_field_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -167,18 +168,33 @@ class _NewMatchPageState extends State<NewMatchPage> {
                         setState(() {
                           loading = true;
                         });
-                        try{
-                          await dbService.createNewFirstInningsMatch(opponentTeamName: opponentTeamName, totalOvers: totalOvers, noOfPlayers: noOfPlayers, strikerName: strikerName, nonStrikerName: nonStrikerName);
-                        }
-                        catch(e){
+                        try {
+                          if (firstInnings == true) {
+                            await dbService.createNewFirstInningsMatch(
+                                opponentTeamName: opponentTeamName,
+                                totalOvers: totalOvers,
+                                noOfPlayers: noOfPlayers,
+                                strikerName: strikerName,
+                                nonStrikerName: nonStrikerName);
+                          } else {
+                            await dbService.createNewSecondInningsMatch(
+                                opponentTeamName: opponentTeamName,
+                                totalOvers: totalOvers,
+                                noOfPlayers: noOfPlayers,
+                                target: target!,
+                                strikerName: strikerName,
+                                nonStrikerName: nonStrikerName);
+                          }
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const ScoreBoardPage()),);
+                        } catch (e) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              e.toString(),
-                              style: textStyle,
+                            SnackBar(
+                              content: Text(
+                                e.toString(),
+                                style: textStyle,
+                              ),
                             ),
-                          ),
-                        );
+                          );
                         }
                       }
                     },

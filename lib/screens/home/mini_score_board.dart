@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cricket_scoreboard/backend/db.dart';
+import 'package:cricket_scoreboard/screens/scoreboardpage/scoreboardpage.dart';
 import 'package:flutter/material.dart';
 
 class MiniScoreBoard extends StatefulWidget {
@@ -22,10 +23,22 @@ class _MiniScoreBoardState extends State<MiniScoreBoard> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
         }
-      
-        return ListTile(
-          title: Text(
-           snapshot.data!.docs.first.id,
+
+        return GestureDetector(
+          onTap: () {
+            dbService.scoreBoardCollection =
+                widget.ref.collection("scoreboard");
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ScoreBoardPage(),
+              ),
+            );
+          },
+          child: ListTile(
+            title: Text(
+              snapshot.data!.docs.first.id,
+            ),
           ),
         );
       },

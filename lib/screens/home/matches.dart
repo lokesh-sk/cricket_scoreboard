@@ -25,12 +25,19 @@ class _MatchesPageState extends State<MatchesPage> {
           return const CircularProgressIndicator();
         }
         if (snapshot.data!.docs.isEmpty) {
-          return const Center(child:  Text("No matches"));
+          return const Center(child: Text("No matches"));
         }
-        return ListView(
-          children: snapshot.data!.docs.map((DocumentSnapshot document) {
-            return MiniScoreBoard(ref: document.reference);
-          }).toList(),
+        // return ListView(
+        //   children: snapshot.data!.docs.map((DocumentSnapshot document) {
+        //     return MiniScoreBoard(ref: document.reference);
+        //   }).toList(),
+        // );
+
+        return PageView.builder(
+          itemBuilder: (context, index) {
+            return MiniScoreBoard(ref: snapshot.data!.docs[index].reference);
+          },
+          itemCount: snapshot.data!.size,
         );
       },
     );

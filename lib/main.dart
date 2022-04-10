@@ -4,6 +4,7 @@ import 'package:cricket_scoreboard/screens/authentication/authentication.dart';
 import 'package:cricket_scoreboard/screens/home/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'firebase_options.dart';
@@ -15,8 +16,9 @@ void main() async {
   );
 
   /// Returns the root widget cricketScoreBoard
-  runApp(const MaterialApp(
-    home: CricketScoreBoard(),
+  runApp( MaterialApp(
+    scrollBehavior: AppScrollBehavior(),
+    home: const CricketScoreBoard(),
   ));
 }
 
@@ -40,4 +42,12 @@ class CricketScoreBoard extends StatelessWidget {
       },
     );
   }
+}
+
+class AppScrollBehavior extends MaterialScrollBehavior {
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+      };
 }
