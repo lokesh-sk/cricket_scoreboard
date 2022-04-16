@@ -17,6 +17,7 @@ void main() async {
 
   /// Returns the root widget cricketScoreBoard
   runApp( MaterialApp(
+    debugShowCheckedModeBanner: false,
     scrollBehavior: AppScrollBehavior(),
     home: const CricketScoreBoard(),
   ));

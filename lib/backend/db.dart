@@ -125,14 +125,19 @@ class DataBaseService {
     scoreBoardCollection.add(scoreBoard.toMap());
   }
 
-  Query<ScoreBoard> getMainScoreBoard() {
+  Stream<QuerySnapshot<ScoreBoard>> getMainScoreBoard() {
     return scoreBoardCollection
         .orderBy("time", descending: true)
         .limit(1)
         .withConverter<ScoreBoard>(
             fromFirestore: (snapshot, _) =>
                 ScoreBoard.fromMap(snapshot.data()!),
-            toFirestore: (scoreBoard,_) => scoreBoard.toMap());
+            toFirestore: (scoreBoard,_) => scoreBoard.toMap()).snapshots();
+  }
+
+  Stream<DocumentSnapshot<Object?>> getPlayerName({required String ref})  {
+      return  playersCollection.doc(ref).snapshots();
+      
   }
 }
 

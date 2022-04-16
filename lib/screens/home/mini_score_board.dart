@@ -31,7 +31,7 @@ class _MiniScoreBoardState extends State<MiniScoreBoard> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const ScoreBoardPage(),
+                builder: (context) =>  ScoreBoardPage(),
               ),
             );
           },

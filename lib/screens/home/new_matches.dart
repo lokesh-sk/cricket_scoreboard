@@ -185,7 +185,7 @@ class _NewMatchPageState extends State<NewMatchPage> {
                                 strikerName: strikerName,
                                 nonStrikerName: nonStrikerName);
                           }
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const ScoreBoardPage()),);
+                        Navigator.push(context, MaterialPageRoute(builder: (context) =>  ScoreBoardPage()),);
                         } catch (e) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
